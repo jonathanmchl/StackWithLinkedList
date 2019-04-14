@@ -1,70 +1,103 @@
-#include <iostream>
+#include<iostream>
 using namespace std;
-struct Node { 
-   int data; 
-   struct Node *next; 
-}; 
-struct Node* atas = NULL; 
-void push(int val) {
-   struct Node* nodebaru = (struct Node*) malloc(sizeof(struct Node)); 
-   nodebaru->data = val; 
-   nodebaru->next = atas; 
-   atas = nodebaru; 
+ 
+ 
+
+struct node
+{
+    int data;
+    struct node *next;
+};
+ 
+class stack
+{
+    struct node *atas;
+    public:
+    stack() 
+    {
+        atas=NULL;
+    }
+    void push(); 
+    void pop();  
+    void show(); 
+};
+
+void stack::push()
+{
+    int value;
+    struct node *ptr;
+    cout<<"\n INPUT / PUSH STACK ";
+    cout<<"Masukkan Angka yang anda ingin input: ";
+    cin>>value;
+    ptr=new node;
+    ptr->data=value;
+    ptr->next=NULL;
+    if(atas!=NULL)
+        ptr->next=atas;
+    atas=ptr;
+    cout<<"\nAngka sudah dimasukkan dalam stack :)";
+ 
 }
-void pop() {
-   if(atas==NULL)
-      cout<<"Stack Underflow"<<endl;
-   else {
-      cout<<"Elemen Yang Dihilangkan Adalah "<< atas->data <<endl;
-      atas = atas->next;
-   }
+ 
+
+void stack::pop()
+{
+    struct node *temp;
+    if(atas==NULL)
+    {
+        cout<<"\nIsi Stack Masih Kosong";
+    }
+    temp=atas;
+    atas=atas->next;
+    cout<<"\nOperasi........\nilai dari POP adalah "<<temp->data;
+    delete temp;
 }
-void display() {
-   struct Node* ptr;
-   if(atas==NULL)
-      cout<<"Stack Kosong";
-   else {   
-      ptr = atas; 
-      cout<<"Elemen Dari Stack Adalah: ";
-      while (ptr != NULL) { 
-         cout<< ptr->data <<" "; 
-         ptr = ptr->next; 
-      } 
-   }
-   cout<<endl;
+ 
+
+void stack::show()
+{
+    struct node *ptr1=atas;
+    cout<<"\nStacknya Adalah :\n";
+    while(ptr1!=NULL)
+    {
+        cout<<ptr1->data<<" ->";
+        ptr1=ptr1->next;
+    }
+    cout<<"NULL\n";
 }
-int main() {
-   int ch, val; 
-   cout<<"1) Masukkan elemen Ke stack"<<endl;
-   cout<<"2) Hilangkan elemen dari stack"<<endl;
-   cout<<"3) Tampilkan stack"<<endl;
-   cout<<"4) Keluar"<<endl;
-   do {
-      cout<<"Masukkan Nomor Pilihan: "<<endl;
-      cin>>ch;
-      switch(ch) {
-         case 1: {   
-            cout<<"Masukkan Nilai Yang ingin Dimasukkan:"<<endl;
-            cin>>val;
-            push(val);
-            break;
-         }
-         case 2: {
-            pop();
-            break;
-         }
-         case 3: {
-            display();
-            break;
-         }
-         case 4: {
-            cout<<"Exit"<<endl;
-            break;
-         }
-         default: {
-            cout<<"Salah Silahkan Ulang"<<endl;
-         }
-      }
-   }while(ch!=4); 
-      return 0;
-}    
+ 
+
+int main()
+{
+    stack s;
+    int choice;
+    while(1)
+    {
+        cout<<"\n-----------------------------------------------------------";
+        cout<<"\n\t\tIMPLEMENTASI STACK DENGAN MENGGUNAKAN LINKED LIST\n\n";
+        cout<<"\n-----------------------------------------------------------";
+       
+        cout<<"1:PUSH\n2:POP\n3:MENAMPILKAN STACK\n4:EXIT";
+        cout<<"\nMASUKKAN PILIHAN MU (1-4): ";
+        cin>>choice;
+        switch(choice)
+        {
+            case 1:
+                s.push();
+                break;
+            case 2:
+                s.pop();
+                break;
+            case 3:
+                s.show();
+                break;
+            case 4:
+                return 0;
+                break;
+            default:
+                cout<<"\nMAAF PILIHAN ANDA SALAH COBA LAGI(1-4)!!";
+                break;
+        }
+    }
+    return 0;
+}
